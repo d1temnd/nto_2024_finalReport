@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  haproxy:
+    build: haproxy
+    ports:
+      - "8001:8001"
+    links:
+      - "backend"
+    environment:
+      - SERVER_HOSTNAME=backend
+      - SERVER_PORT=8000
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024mb
+
+
+  backend:
+    build: backend
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024mb
+
